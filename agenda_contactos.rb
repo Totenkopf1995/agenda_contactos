@@ -1,4 +1,4 @@
-  #Un programa que cree una agenda de contactos, que permita al usuario agregar, editar, eliminar y buscar contactos, y guardarlos en un archivo.
+#Un programa que cree una agenda de contactos, que permita al usuario agregar, editar, eliminar y buscar contactos, y guardarlos en un archivo.
   
 require 'colorize'
 require 'colorized_string'
@@ -6,14 +6,11 @@ require 'colorized_string'
 module Agenda
   
   class Main
-    def initialize(respuesta)
-      @respuesta = respuesta
-    end
     def self.pregunta
       puts
-      puts "Agenda Contactos".center(50, "-").green.on_white.bold
+      puts "Agenda Contactos".center(50, "-").green.bold.on_black
       puts
-      puts "Quieres:".blue.on_white.bold
+      puts "Quieres:".blue.bold.underline.on_black
       lista = [
       'agregar(ag)', 
       'editar(ed)', 
@@ -21,39 +18,39 @@ module Agenda
       'buscar(bu)'
       ]
       lista.each do |list|
-        sleep 2
+        sleep 1
         puts
-        print list.center(50, " ").yellow.on_white
-        sleep 2
+        print list.center(50, " ").yellow.on_black
+        sleep 1
         puts
       end
       puts
-      print ' => '.red.on_white
-      @respuesta = gets.strip.downcase
-      
+      print ' => '.red.on_black
+      respuesta = gets.strip.downcase
+      Respuesta.validar(respuesta)
     end
   end
   
-  class Respuesta < Main
+  class Respuesta
     
-    def self.validar
+    def self.validar(respuesta)
       
-      case @respuesta
+      case respuesta
       when 'ag'
-        send(:agregar)
+        Contactos.agregar
       when 'ed'
-        send(:editar)
+        Contactos.editar
       when 'el'
-        send(:eliminar)
+        Contactos.eliminar
       when 'bu'
-        send(:buscar)
+        Contactos.buscar
       else
         puts "No es valida la respuesta"
       end
     end
   end
   
-  class Contactos < Respuesta
+  class Contactos
     
     def self.agregar
       puts 'agregar'
