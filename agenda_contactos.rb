@@ -12,7 +12,7 @@ module Agenda
     puts
     def self.pregunta
 
-      puts "Quieres:".blue.bold.underline.on_black
+      puts "Quieres:".blue.bold.on_black
       lista = [
       'agregar(ag)', 
       'editar(ed)', 
