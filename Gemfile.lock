@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    colorize (1.1.0)
+    pg (1.5.5)
+
+PLATFORMS
+  aarch64-linux-android
+  ruby
+
+DEPENDENCIES
+  colorize (~> 1.1)
+  pg (~> 1.5)
+
+BUNDLED WITH
+   2.5.6
