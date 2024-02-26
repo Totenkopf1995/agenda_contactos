@@ -7,3 +7,4 @@ source "https://rubygems.org"
 gem "pg", "~> 1.5"
 
 gem "colorize", "~> 1.1"
+gem 'rubocop', group: 'development', require: false

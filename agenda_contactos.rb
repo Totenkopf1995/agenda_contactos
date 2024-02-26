@@ -6,10 +6,12 @@ require 'colorized_string'
 module Agenda
   
   class Main
+
+    puts
+    puts "Agenda Contactos".center(50, "-").green.bold.on_black
+    puts
     def self.pregunta
-      puts
-      puts "Agenda Contactos".center(50, "-").green.bold.on_black
-      puts
+
       puts "Quieres:".blue.bold.underline.on_black
       lista = [
       'agregar(ag)', 
@@ -18,10 +20,10 @@ module Agenda
       'buscar(bu)'
       ]
       lista.each do |list|
-        sleep 1
+        sleep 0.2
         puts
         print list.center(50, " ").yellow.on_black
-        sleep 1
+        sleep 0.2
         puts
       end
       puts
@@ -30,7 +32,7 @@ module Agenda
       Respuesta.validar(respuesta)
     end
   end
-  
+
   class Respuesta
     
     def self.validar(respuesta)
@@ -45,7 +47,10 @@ module Agenda
       when 'bu'
         Contactos.buscar
       else
-        puts "No es valida la respuesta"
+        puts
+        puts "No es valida la respuesta".center(50, "-").red.bold
+        puts
+        Main.pregunta
       end
     end
   end
@@ -66,16 +71,16 @@ module Agenda
     end
   end
   
-  class Archivo < Contactos
+  class Archivo
     
     def self.crear
-      
+      puts 'crear archivo'
     end
     def self.guardar
-      
+      puts 'guardar archivo'
     end
     def self.muestra
-      
+      puts 'mostrar archivo'
     end
   end
 end
