@@ -4,9 +4,9 @@ require 'colorize'
 require 'colorized_string'
   
 module Agenda
-  
-  class Main
 
+  class Main
+    # clase main se pregunta al usuario que desea realizar
     puts
     puts "Agenda Contactos".center(50, "-").green.bold.on_black
     puts
@@ -14,10 +14,10 @@ module Agenda
 
       puts "Quieres:".blue.bold.on_black
       lista = [
-      'agregar(ag)', 
-      'editar(ed)', 
-      'eliminar(el)',
-      'buscar(bu)'
+      'agregar(1)',
+      'editar(2)',
+      'eliminar(3)',
+      'buscar(4)'
       ]
       lista.each do |list|
         sleep 0.2
@@ -34,17 +34,18 @@ module Agenda
   end
 
   class Respuesta
-    
+    # clase respuesta se valida con un case la respuesta del usuario
+    # si no es valida se muestra nuevamente las opciones
     def self.validar(respuesta)
       
       case respuesta
-      when 'ag'
+      when '1'
         Contactos.agregar
-      when 'ed'
+      when '2'
         Contactos.editar
-      when 'el'
+      when '3'
         Contactos.eliminar
-      when 'bu'
+      when '4'
         Contactos.buscar
       else
         puts
@@ -54,12 +55,40 @@ module Agenda
       end
     end
   end
-  
+
   class Contactos
-    
-    def self.agregar
-      puts 'agregar'
+    # clase contactos contiene una funcion generador de id verificando si exite
+    # el archivo y si se encuentra vacio, valida el numero mas alto de contactos
+    # y le agrega uno para crear el id
+    def self.generar_id_unico
+
+      id = 1
+      if File.exist?('agenda.txt') && !File.empty?('agenda.txt')
+        File.foreach('agenda.txt') do |linea|
+          id += 1
+        end
+      end
+      id
     end
+
+    def self.agregar
+      #le pide al usuario que ingrese el contacto para agregarlo
+      puts
+      puts "Escribe el contacto que quieres agregar:".blue.bold.on_black
+      puts
+      print ' => '.red.on_black
+      data = gets.strip.downcase
+      #organiza el id y luego el contacto y lo escribe en el archivo
+      # uno debajo del otro
+      id = Contactos.generar_id_unico
+
+      contacto = "#{id}: #{data}"
+
+      File.open('agenda.txt', 'a') do |file|
+        file.puts(contacto)
+      end
+    end
+
     def self.editar
       puts 'editar'
     end
@@ -70,17 +99,18 @@ module Agenda
       puts 'buscar'
     end
   end
-  
+
   class Archivo
-    
-    def self.crear
-      puts 'crear archivo'
-    end
-    def self.guardar
-      puts 'guardar archivo'
-    end
-    def self.muestra
-      puts 'mostrar archivo'
+
+    def self.validar_archivo
+
+      if File.exist?("agenda.txt")
+
+      else
+        File.open('agenda.txt', 'w') do |file|
+
+        end
+      end
     end
   end
 end
