@@ -90,27 +90,21 @@ module Agenda
     end
 
     def self.editar
-      puts 'editar'
+      #se pide al usuario indicar cual ID quiere modificar
+      puts
+      puts "Escribe el ID que quieres modificar:".blue.bold.on_black
+      puts
+      print ' => '.red.on_black
+      id = gets.strip.downcase
+      File.open('agenda.txt', 'w') do |file|
+
+      end
     end
     def self.eliminar
       puts 'eliminar'
     end
     def self.buscar
       puts 'buscar'
-    end
-  end
-
-  class Archivo
-
-    def self.validar_archivo
-
-      if File.exist?("agenda.txt")
-
-      else
-        File.open('agenda.txt', 'w') do |file|
-
-        end
-      end
     end
   end
 end
