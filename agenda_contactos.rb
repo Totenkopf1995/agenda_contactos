@@ -14,10 +14,12 @@ module Agenda
 
       puts "Quieres:".blue.bold.on_black
       lista = [
+      'salir(0)',
       'agregar(1)',
       'editar(2)',
       'eliminar(3)',
-      'buscar(4)'
+      'buscar(4)',
+      'mostrar datos(5)'
       ]
       lista.each do |list|
         sleep 0.2
@@ -39,6 +41,8 @@ module Agenda
     def self.validar(respuesta)
       
       case respuesta
+      when '0'
+        Contactos.salir
       when '1'
         Contactos.agregar
       when '2'
@@ -47,6 +51,8 @@ module Agenda
         Contactos.eliminar
       when '4'
         Contactos.buscar
+      when '5'
+        Contactos.mostrar_datos
       else
         puts
         puts "No es valida la respuesta".center(50, "-").red.bold
@@ -70,7 +76,9 @@ module Agenda
       end
       id
     end
-
+    def self.salir
+      exit
+    end
     def self.agregar
       #le pide al usuario que ingrese el contacto para agregarlo
       puts
@@ -105,6 +113,13 @@ module Agenda
     end
     def self.buscar
       puts 'buscar'
+    end
+    def self.mostrar_datos
+      puts 'Mostrando... '
+      File.open('agenda.txt', 'r') do |file|
+        contenido = file.read
+        puts contenido
+      end
     end
   end
 end
