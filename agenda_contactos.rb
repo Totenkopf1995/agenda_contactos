@@ -10,28 +10,32 @@ module Agenda
     puts
     puts "Agenda Contactos".center(50, "-").green.bold.on_black
     puts
+    
     def self.pregunta
-
-      puts "Quieres:".blue.bold.on_black
-      lista = [
-      'salir(0)',
-      'agregar(1)',
-      'editar(2)',
-      'eliminar(3)',
-      'buscar(4)',
-      'mostrar datos(5)'
-      ]
-      lista.each do |list|
-        sleep 0.2
+      begin
+        puts "Quieres:".blue.bold.on_black
+        lista = [
+        'salir(0)',
+        'agregar(1)',
+        'editar(2)',
+        'eliminar(3)',
+        'buscar(4)',
+        'mostrar datos(5)'
+        ]
+        lista.each do |list|
+          sleep 0.2
+          puts
+          print list.center(50, " ").yellow.on_black
+          sleep 0.2
+          puts
+        end
         puts
-        print list.center(50, " ").yellow.on_black
-        sleep 0.2
-        puts
+        print ' => '.red.on_black
+        respuesta = gets.strip.downcase
+        Respuesta.validar(respuesta)
+      rescue StandardError => e # capturar cualquier error estándar
+        puts "Lo siento, ocurrió un error: #{e.message}" # imprimir el mensaje de error
       end
-      puts
-      print ' => '.red.on_black
-      respuesta = gets.strip.downcase
-      Respuesta.validar(respuesta)
     end
   end
 
@@ -76,9 +80,11 @@ module Agenda
       end
       id
     end
+    
     def self.salir
       exit
     end
+    
     def self.agregar
       #le pide al usuario que ingrese el contacto para agregarlo
       puts
@@ -89,12 +95,16 @@ module Agenda
       #organiza el id y luego el contacto y lo escribe en el archivo
       # uno debajo del otro
       id = Contactos.generar_id_unico
-
       contacto = "#{id}: #{data}"
-
       File.open('agenda.txt', 'a') do |file|
         file.puts(contacto)
       end
+      puts
+      sleep 0.5
+      puts 'Agregado'
+      sleep 0.5
+      puts
+      Main.pregunta
     end
 
     def self.editar
@@ -120,6 +130,7 @@ module Agenda
         contenido = file.read
         puts contenido
       end
+      Main.pregunta
     end
   end
 end
