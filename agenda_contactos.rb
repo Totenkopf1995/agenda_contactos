@@ -14,6 +14,7 @@ module Agenda
     def self.pregunta
       #funcion con manejo de excepciones
       begin
+        puts
         puts "Quieres:".blue.bold.on_black
         lista = [
         'salir(0)',
