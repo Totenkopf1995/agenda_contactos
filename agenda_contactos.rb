@@ -12,6 +12,7 @@ module Agenda
     puts
     
     def self.pregunta
+      #funcion con manejo de excepciones
       begin
         puts "Quieres:".blue.bold.on_black
         lista = [
