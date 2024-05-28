@@ -98,14 +98,18 @@ module Agenda
       # uno debajo del otro
       id = Contactos.generar_id_unico
       contacto = "#{id}: #{data}"
+      
       File.open('agenda.txt', 'a') do |file|
         file.puts(contacto)
+        file.close
       end
+      
       puts
       sleep 0.5
       puts 'Agregado'
       sleep 0.5
       puts
+      
       Main.pregunta
     end
 
